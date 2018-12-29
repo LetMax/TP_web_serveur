@@ -21,6 +21,11 @@ public class Liste {
         this.id = dao.getIdFromTitre(titrep);
     }
 
+    @Override
+    public String toString(){
+        return "Liste #" + this.getId() + " (" + this.getIdUser() + ") " + " : " + this.getTitre() + " (" + this.getDescription() + ")";
+    }
+
     public int getId(){ return this.id; }
     public String getTitre(){ return this.titre; }
     public String getDescription(){ return this.description; }

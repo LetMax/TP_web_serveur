@@ -20,7 +20,7 @@ public class DAO_Liste {
         } catch (Sql2oException e){
             e.printStackTrace();
         }
-
+        System.out.println(l.toString());
         return l;
     }
 

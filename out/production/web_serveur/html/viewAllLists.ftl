@@ -21,6 +21,7 @@
             </#list>
         </tbody>
     </table>
-    <a class="button" href="./logout">Déconnexion</a>
+    <a class="button" href="/viewAllLists/creaListe">Ajouter une liste</a>
+    <a class="button" href="./">Retourner à l'accueil</a>
 </body>
 </html>

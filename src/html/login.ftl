@@ -16,7 +16,7 @@
 <#else>
     <h1>Bienvenue, ${user}</h1>
     <a class="button" href="./viewAllLists">Mes listes</a>
+    <a class="button" href="./logout">Déconnexion</a>
 </#if>
-<a class="button" href="./logout">Déconnexion</a>
 </body>
 </html>

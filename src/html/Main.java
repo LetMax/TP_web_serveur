@@ -36,6 +36,44 @@ public class Main {
 
         //Schema d'URL
 
+        post("/viewAllLists/creaListe", (req, res) -> {
+            if(getAuthenticatedUser(req) == null){
+                res.redirect("/", 301);
+                return "";
+            }
+
+            if(req.queryParams("titre") == null){
+                res.redirect("/viewAllLists", 301);
+                return "";
+            }
+
+            String titre = req.queryParams("titre");
+            String description = req.queryParams("description");
+
+            new Liste(titre, description, getAuthenticatedUser(req).getID());
+
+            res.redirect("/viewAllLists", 301);
+            return "";
+        });
+
+
+        get("/viewAllLists/creaListe", (req, res) -> {
+
+            if(getAuthenticatedUser(req) == null){
+                res.redirect("/", 301);
+                return "";
+            }
+
+            Template template = cfg.getTemplate("creaListe.ftl");
+            Map<String, Object> input = new HashMap<>();
+
+            input.put("user", getAuthenticatedUser(req).getNom());
+
+            Writer output = new StringWriter();
+            template.process(input, output);
+            return output.toString();
+        });
+
 
         get("/viewAllLists", (req, res) ->{
 
