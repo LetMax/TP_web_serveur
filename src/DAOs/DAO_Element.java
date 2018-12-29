@@ -76,7 +76,7 @@ public class DAO_Element {
         List<Element> listeItems = new ArrayList<Element>();
 
         try {
-            String query = "SELECT * FROM element WHERE id_list = :i ORDER BY ID ASC";
+            String query = "SELECT * FROM element WHERE id_liste = :i ORDER BY ID ASC";
             listeItems = co.createConnection().createQuery(query)
                     .addParameter("i", l.getId())
                     .executeAndFetch(Element.class);

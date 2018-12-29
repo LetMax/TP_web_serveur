@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Créer une liste</title>
+    <title>Création</title>
 </head>
 
 <body>
@@ -12,7 +12,7 @@
     <label for="description">Description : </label>
     <input type="text" class="input" name="description" id="description" style="width:400px" placeholder="Description"/>
 
-    <input type="submit" value="Envoyer"/>
+    <input type="submit" value="Créer"/>
 </form>
 </body>
 </html>

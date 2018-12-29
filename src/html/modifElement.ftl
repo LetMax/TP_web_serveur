@@ -4,8 +4,8 @@
 </head>
 
 <body>
-<h1>Modifiez votre liste</h1>
-<form action="./edit" method="post">
+<h1>Modifiez votre élément</h1>
+<form action="/viewAllLists/${idListe}/editElement/${idElement}" method="post">
     <label for="titre">Titre : </label>
     <input type="text" name="titre" id="titre" value="${titre}" placeholder="Titre"/>
 

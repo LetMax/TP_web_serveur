@@ -29,6 +29,15 @@ public class Element {
         this.id = dao.getIdfromElement(this);
     }
 
+    public Element(int idp, int idListep, Date date_modifp, String descriptionp, String titrep, int statutp){
+        this.id = idp;
+        this.titre = titrep;
+        this.description = descriptionp;
+        this.id_liste = idListep;
+        this.date_modif = date_modifp;
+        this.statut = statutp;
+    }
+
     public int getId(){ return this.id; }
     public int getIdListe(){ return this.id_liste; }
     public String getTitre(){ return this.titre; }

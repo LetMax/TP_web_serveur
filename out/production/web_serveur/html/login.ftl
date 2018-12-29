@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title><#if user="">Connexion / Création de compte<#else>Accueil</#if></title>
+    <title><#if user="">Login<#else>Accueil</#if></title>
 </head>
 
 <body>
