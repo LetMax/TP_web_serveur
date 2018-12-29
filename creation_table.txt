@@ -1,12 +1,3 @@
 create table user(id int auto_increment, nom varchar(255), mdp varchar(255));
 create table liste(id int auto_increment, id_user int, titre varchar(255), description varchar(255));
 create table element(id int auto_increment, id_liste int, date_crea timestamp, date_modif timestamp, description varchar(255), titre varchar(255), statut int);
-
-
-select * from user;
-select * from liste;
-select * from element;
-
-delete from user;
-delete from liste;
-delete from element;
