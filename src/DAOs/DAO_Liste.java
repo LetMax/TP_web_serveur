@@ -20,7 +20,7 @@ public class DAO_Liste {
         } catch (Sql2oException e){
             e.printStackTrace();
         }
-        System.out.println(l.toString());
+
         return l;
     }
 
@@ -33,7 +33,7 @@ public class DAO_Liste {
                     .executeUpdate();
 
             //On delete les elements de cette liste
-            String query2 = "DELETE FROM item WHERE id_liste = :y";
+            String query2 = "DELETE FROM element WHERE id_liste = :y";
             co.createConnection().createQuery(query2)
                     .addParameter("y", l.getId())
                     .executeUpdate();

@@ -1,5 +1,7 @@
 package classes;
 
+import DAOs.DAO_Element;
+
 import java.util.Date;
 
 public class Element {
@@ -22,9 +24,9 @@ public class Element {
         this.date_modif = this.date_crea;
         this.statut = 1;
 
-        //DAO_Item dao = new DAO_Item();
-        //dao.create(this);
-        //this.id = ...
+        DAO_Element dao = new DAO_Element();
+        dao.create(this);
+        this.id = dao.getIdfromElement(this);
     }
 
     public int getId(){ return this.id; }

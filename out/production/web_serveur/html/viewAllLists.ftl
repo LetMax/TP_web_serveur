@@ -17,6 +17,7 @@
                 <tr>
                     <td>${liste.titre}</td>
                     <td>${liste.description}</td>
+                    <td><a href="/viewAllLists/${liste.id}/edit">Editer</a> <a href="/viewAllLists/${liste.id}/remove">Supprimer</a></td>
                 </tr>
             </#list>
         </tbody>

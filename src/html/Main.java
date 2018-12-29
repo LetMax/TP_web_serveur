@@ -5,6 +5,8 @@ import DAOs.*;
 
 import java.util.*;
 import java.io.*;
+
+import com.sun.media.sound.SF2InstrumentRegion;
 import freemarker.template.*;
 import spark.Request;
 import static spark.Spark.*;
@@ -35,6 +37,82 @@ public class Main {
         port(8083);
 
         //Schema d'URL
+
+        post("/viewAllLists/:id/edit", (req, res) -> {
+
+            if(getAuthenticatedUser(req) == null){
+                res.redirect("/", 301);
+                return "";
+            }
+
+            if(req.queryParams("titre") == null){
+                res.redirect("/viewAllLists", 301);
+                System.out.println("Titre null");
+                return "";
+            }
+
+            String titre = req.queryParams("titre");
+            String description = req.queryParams("description");
+
+            DAO_Liste dao_liste= new DAO_Liste();
+
+            if(dao_liste.getListeFromId(Integer.parseInt(req.params(":id"))).getIdUser() != getAuthenticatedUser(req).getID()){
+                res.redirect("/viewAllLists", 301);
+                System.out.println("Pas le bon user");
+                return "";
+            }
+
+            dao_liste.update(new Liste(Integer.parseInt(req.params(":id")), titre, description, getAuthenticatedUser(req).getID()));
+            res.redirect("/viewAllLists", 301);
+            return "";
+        });
+
+
+        get("/viewAllLists/:id/edit", (req, res) -> {
+            if(getAuthenticatedUser(req) == null){
+                res.redirect("/", 301);
+                return "";
+            }
+
+            DAO_Liste dao_liste = new DAO_Liste();
+
+            if(dao_liste.getListeFromId(Integer.parseInt(req.params(":id"))).getIdUser() != getAuthenticatedUser(req).getID()){
+                res.redirect("/viewAllLists", 301);
+                return "";
+            }
+
+            Template template = cfg.getTemplate("modifListe.ftl");
+            Map<String, Object> input = new HashMap<>();
+
+            input.put("id", dao_liste.getListeFromId(Integer.parseInt(req.params(":id"))).getId());
+            input.put("titre", dao_liste.getListeFromId(Integer.parseInt(req.params(":id"))).getTitre());
+            input.put("description", dao_liste.getListeFromId(Integer.parseInt(req.params(":id"))).getDescription());
+
+            Writer output = new StringWriter();
+            template.process(input, output);
+            return output.toString();
+
+        });
+
+        get("/viewAllLists/:id/remove", (req, res) -> {
+            if(getAuthenticatedUser(req) == null){
+                res.redirect("/", 301);
+                return "";
+            }
+
+            DAO_Liste dao_liste = new DAO_Liste();
+
+            if(dao_liste.getListeFromId(Integer.parseInt(req.params(":id"))).getIdUser() != getAuthenticatedUser(req).getID()){
+                res.redirect("/viewAllLists", 301);
+                return "";
+            }
+
+
+            dao_liste.delete(dao_liste.getListeFromId(Integer.parseInt(req.params(":id"))));
+            res.redirect("/viewAllLists");
+            return "";
+        });
+
 
         post("/viewAllLists/creaListe", (req, res) -> {
             if(getAuthenticatedUser(req) == null){
