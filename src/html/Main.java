@@ -252,7 +252,6 @@ public class Main {
                 return "";
             }
 
-
             dao_liste.delete(dao_liste.getListeFromId(Integer.parseInt(req.params(":id"))));
             res.redirect("/viewAllLists");
             return "";

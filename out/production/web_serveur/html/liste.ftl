@@ -26,7 +26,7 @@
     </table>
     <form action="/viewAllLists/${id}/ajoutElement" method="post">
         <input type="text" name="titre" id="titre" placeholder="Titre"/>
-        <input type="text" name="description" id="description" style="width"400px" placeholder="Description"/>
+        <input type="text" name="description" id="description" placeholder="Description"/>
         <input type="submit" value="Ajouter"/>
     </form>
     <a class="button" href="../../viewAllLists">Mes listes</a>

@@ -24,7 +24,7 @@
     </table>
     <form action="/viewAllLists/creaListe" method="post">
         <input type="text" name="titre" id="titre" placeholder="Titre"/>
-        <input type="text" name="description" id="description" style="width"400px" placeholder="Description"/>
+        <input type="text" name="description" id="description" placeholder="Description"/>
         <input type="submit" value="Ajouter"/>
     </form>
     <a class="button" href="./">Retourner à l'accueil</a>

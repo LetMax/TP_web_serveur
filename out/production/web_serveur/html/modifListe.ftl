@@ -10,7 +10,7 @@
     <input type="text" name="titre" id="titre" value="${titre}" placeholder="Titre"/>
 
     <label for="description">Description : </label>
-    <input type="text" name="description" id="description" value="${description}" style="width:400px" placeholder="Description"/>
+    <input type="text" name="description" id="description" value="${description}" placeholder="Description"/>
 
     <input type="submit" value="Modifier"/>
 </form>
