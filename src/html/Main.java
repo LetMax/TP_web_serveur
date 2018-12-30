@@ -6,7 +6,6 @@ import DAOs.*;
 import java.util.*;
 import java.io.*;
 
-import com.sun.media.sound.SF2InstrumentRegion;
 import freemarker.template.*;
 import spark.Request;
 import static spark.Spark.*;
@@ -28,15 +27,48 @@ public class Main {
         port(8083);
 
         //Schema d'URL
+        get("/viewAllLists/:idListe/statut/:idElement", (req, res) -> {
+            if(getConnectedUser(req) == null){
+                res.redirect("/");
+                return "";
+            }
+
+            DAO_Liste dao_liste = new DAO_Liste();
+
+            if(dao_liste.getListeFromId(Integer.parseInt(req.params(":idListe"))).getIdUser() != getConnectedUser(req).getID()){
+                res.redirect("/viewAllLists");
+                return "";
+            }
+
+            DAO_Element dao_element = new DAO_Element();
+
+            if(dao_element.getItemFromId(Integer.parseInt(req.params(":idElement"))).getIdListe() != Integer.parseInt(req.params(":idListe"))){
+                res.redirect("/viewAllLists"+req.params(":idListe")+"/liste");
+                return "";
+            }
+
+            Element elem = dao_element.getItemFromId(Integer.parseInt(req.params(":idElement")));
+            int statutp = 1;
+
+            if(elem.getStatut() == 1){
+                statutp = 2;
+            }
+
+            dao_element.update(new Element(Integer.parseInt(req.params(":idElement")), Integer.parseInt(req.params(":idListe")), new Date(), elem.getDescription(), elem.getTitre(), statutp));
+
+            res.redirect("/viewAllLists/"+req.params(":idListe")+"/liste");
+            return "";
+        });
+
         post("/viewAllLists/:idListe/editElement/:idElement", (req, res) -> {
 
             if(getConnectedUser(req) == null){
-                res.redirect("/", 301);
+                res.redirect("/");
                 return "";
             }
 
             if(req.queryParams("titre") == null){
-                res.redirect("/viewAllLists", 301);
+                res.redirect("/viewAllLists");
                 return "";
             }
 
@@ -46,40 +78,39 @@ public class Main {
             DAO_Liste dao_liste = new DAO_Liste();
 
             if(dao_liste.getListeFromId(Integer.parseInt(req.params(":idListe"))).getIdUser() != getConnectedUser(req).getID()){
-                res.redirect("/viewAllLists", 301);
+                res.redirect("/viewAllLists");
                 return "";
             }
 
             DAO_Element dao_element = new DAO_Element();
             if(dao_element.getItemFromId(Integer.parseInt(req.params(":idElement"))).getIdListe() != Integer.parseInt(req.params(":idListe"))){
-                res.redirect("/viewAllLists/"+req.params(":idListe")+"/liste", 301);
+                res.redirect("/viewAllLists/"+req.params(":idListe")+"/liste");
                 return "";
             }
 
             dao_element.update(new Element(Integer.parseInt(req.params(":idElement")), Integer.parseInt(req.params(":idListe")), new Date(), description, titre, dao_element.getItemFromId(Integer.parseInt(req.params(":idElement"))).getStatut()));
 
-            res.redirect("/viewAllLists/"+req.params(":idListe")+"/liste", 301);
+            res.redirect("/viewAllLists/"+req.params(":idListe")+"/liste");
             return "";
         });
 
-
-        get("/viewAllLists/:idListe/editElement/:idElement", (req, res) ->{
+        get("/viewAllLists/:idListe/editElement/:idElement", (req, res) -> {
             if(getConnectedUser(req) == null){
-                res.redirect("/", 301);
+                res.redirect("/");
                 return "";
             }
 
             DAO_Liste dao_liste = new DAO_Liste();
 
             if(dao_liste.getListeFromId(Integer.parseInt(req.params(":idListe"))).getIdUser() != getConnectedUser(req).getID()){
-                res.redirect("/viewAllLists", 301);
+                res.redirect("/viewAllLists");
                 return "";
             }
 
             DAO_Element dao_element = new DAO_Element();
 
             if(dao_element.getItemFromId(Integer.parseInt(req.params(":idElement"))).getIdListe() != Integer.parseInt(req.params(":idListe"))){
-                res.redirect("/viewAllLists"+req.params(":idListe")+"/liste", 301);
+                res.redirect("/viewAllLists"+req.params(":idListe")+"/liste");
                 return "";
             }
 
@@ -96,23 +127,23 @@ public class Main {
             return output.toString();
         });
 
-        get("/viewAllLists/:idListe/removeElement/:idElement", (req, res) ->{
+        get("/viewAllLists/:idListe/removeElement/:idElement", (req, res) -> {
             if(getConnectedUser(req) == null){
-                res.redirect("/", 301);
+                res.redirect("/");
                 return "";
             }
 
             DAO_Liste dao_liste = new DAO_Liste();
 
             if(dao_liste.getListeFromId(Integer.parseInt(req.params(":idListe"))).getIdUser() != getConnectedUser(req).getID()){
-                res.redirect("/viewAllLists", 301);
+                res.redirect("/viewAllLists");
                 return "";
             }
 
             DAO_Element dao_element = new DAO_Element();
 
             if(dao_element.getItemFromId(Integer.parseInt(req.params(":idElement"))).getIdListe() != Integer.parseInt(req.params(":idListe"))){
-                res.redirect("/viewAllLists"+req.params(":idListe")+"/liste", 301);
+                res.redirect("/viewAllLists"+req.params(":idListe")+"/liste");
                 return "";
             }
 
@@ -122,15 +153,15 @@ public class Main {
             return "";
         });
 
-        post("/viewAllLists/:id/ajoutElement", (req, res) ->{
+        post("/viewAllLists/:id/ajoutElement", (req, res) -> {
 
             if(getConnectedUser(req) == null){
-                res.redirect("/", 301);
+                res.redirect("/");
                 return "";
             }
 
             if(req.queryParams("titre") == null){
-                res.redirect("/viewAllLists/"+req.params(":id")+"/liste", 301);
+                res.redirect("/viewAllLists/"+req.params(":id")+"/liste");
                 return "";
             }
 
@@ -140,27 +171,26 @@ public class Main {
             DAO_Liste dao_liste = new DAO_Liste();
 
             if(dao_liste.getListeFromId(Integer.parseInt(req.params(":id"))).getIdUser() != getConnectedUser(req).getID()){
-                res.redirect("/viewAllLists", 301);
+                res.redirect("/viewAllLists");
                 return "";
             }
 
             new Element(titre, description, Integer.parseInt(req.params((":id"))));
 
-            res.redirect("/viewAllLists/"+req.params(":id")+"/liste", 301);
+            res.redirect("/viewAllLists/"+req.params(":id")+"/liste");
             return "";
         });
 
-
         get("/viewAllLists/:id/liste", (req, res) -> {
             if(getConnectedUser(req) == null){
-                res.redirect("/", 301);
+                res.redirect("/");
                 return "";
             }
 
             DAO_Liste dao_liste= new DAO_Liste();
 
             if(dao_liste.getListeFromId(Integer.parseInt(req.params(":id"))).getIdUser() != getConnectedUser(req).getID()){
-                res.redirect("/viewAllLists", 301);
+                res.redirect("/viewAllLists");
                 return "";
             }
 
@@ -182,16 +212,15 @@ public class Main {
             return output.toString();
         });
 
-
         post("/viewAllLists/:id/edit", (req, res) -> {
 
             if(getConnectedUser(req) == null){
-                res.redirect("/", 301);
+                res.redirect("/");
                 return "";
             }
 
             if(req.queryParams("titre") == null){
-                res.redirect("/viewAllLists", 301);
+                res.redirect("/viewAllLists");
                 System.out.println("Titre null");
                 return "";
             }
@@ -202,27 +231,26 @@ public class Main {
             DAO_Liste dao_liste= new DAO_Liste();
 
             if(dao_liste.getListeFromId(Integer.parseInt(req.params(":id"))).getIdUser() != getConnectedUser(req).getID()){
-                res.redirect("/viewAllLists", 301);
+                res.redirect("/viewAllLists");
                 System.out.println("Pas le bon user");
                 return "";
             }
 
             dao_liste.update(new Liste(Integer.parseInt(req.params(":id")), titre, description, getConnectedUser(req).getID()));
-            res.redirect("/viewAllLists", 301);
+            res.redirect("/viewAllLists");
             return "";
         });
 
-
         get("/viewAllLists/:id/edit", (req, res) -> {
             if(getConnectedUser(req) == null){
-                res.redirect("/", 301);
+                res.redirect("/");
                 return "";
             }
 
             DAO_Liste dao_liste = new DAO_Liste();
 
             if(dao_liste.getListeFromId(Integer.parseInt(req.params(":id"))).getIdUser() != getConnectedUser(req).getID()){
-                res.redirect("/viewAllLists", 301);
+                res.redirect("/viewAllLists");
                 return "";
             }
 
@@ -241,14 +269,14 @@ public class Main {
 
         get("/viewAllLists/:id/remove", (req, res) -> {
             if(getConnectedUser(req) == null){
-                res.redirect("/", 301);
+                res.redirect("/");
                 return "";
             }
 
             DAO_Liste dao_liste = new DAO_Liste();
 
             if(dao_liste.getListeFromId(Integer.parseInt(req.params(":id"))).getIdUser() != getConnectedUser(req).getID()){
-                res.redirect("/viewAllLists", 301);
+                res.redirect("/viewAllLists");
                 return "";
             }
 
@@ -257,15 +285,14 @@ public class Main {
             return "";
         });
 
-
         post("/viewAllLists/creaListe", (req, res) -> {
             if(getConnectedUser(req) == null){
-                res.redirect("/", 301);
+                res.redirect("/");
                 return "";
             }
 
             if(req.queryParams("titre") == null){
-                res.redirect("/viewAllLists", 301);
+                res.redirect("/viewAllLists");
                 return "";
             }
 
@@ -276,14 +303,14 @@ public class Main {
 
             new Liste(titre, description, getConnectedUser(req).getID());
 
-            res.redirect("/viewAllLists", 301);
+            res.redirect("/viewAllLists");
             return "";
         });
 
-        get("/viewAllLists", (req, res) ->{
+        get("/viewAllLists", (req, res) -> {
 
             if(getConnectedUser(req) == null){
-                res.redirect("/", 300);
+                res.redirect("/");
                 return "";
             }
 
@@ -303,16 +330,15 @@ public class Main {
             return output.toString();
         });
 
-        get("/logout", (req, res) ->{
+        get("/logout", (req, res) -> {
             if(getConnectedUser(req) != null){
                 removeConnectedUser(req);
             }
-            res.redirect("/", 301);
+            res.redirect("/");
             return "";
         });
 
-
-        post("/login", (req, res) ->{
+        post("/login", (req, res) -> {
             if(req.queryParams("username") != null){
                 String username = req.queryParams("username");
                 String password = req.queryParams("password");
@@ -331,11 +357,10 @@ public class Main {
                     addConnectedUser(req, user_test);
                 }
 
-                res.redirect("/", 301);
+                res.redirect("/");
             }
             return "";
         });
-
 
         get("/", (req, res) -> {
             Template template = cfg.getTemplate("login.ftl");
@@ -354,7 +379,6 @@ public class Main {
         });
     }
 
-    //Méthodes sur les sessions
     private static void addConnectedUser(Request request, User u) {
         request.session().attribute(GESTION_SESSION, u);
     }
