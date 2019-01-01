@@ -24,6 +24,7 @@ public class Main {
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
 
         //Spark
+        staticFiles.location("/html/static");
         port(8083);
 
         //Schema d'URL

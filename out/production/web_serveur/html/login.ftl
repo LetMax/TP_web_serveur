@@ -1,6 +1,7 @@
 <html>
 <head>
     <title><#if user="">Login<#else>Accueil</#if></title>
+     <link rel="stylesheet" href="/css/style.css"/>
 </head>
 
 <body>
@@ -8,8 +9,8 @@
     <h1>Connexion / Création de compte</h1>
     <p>Entrez vos identifiants ou créez un compte.</p>
     <form action="login" method="post">
-        <input type="text" name="username" id="username" placeholder="username"/>
-        <input type="password" name="password" id="username" placeholder="password"/>
+        <input type="text" name="username" id="username" placeholder="username"/><br/>
+        <input type="password" name="password" id="username" placeholder="password"/><br/>
         <input type="submit" value="Login"/>
     </form>
 
