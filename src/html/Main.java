@@ -16,6 +16,13 @@ public class Main {
 
     public static void main (String[] args){
 
+        //création des tables si ce n'est pas fait
+        String queryCreation = "create table if not exists user(id int auto_increment, nom varchar(255), mdp varchar(255));" +
+                "create table if not exists liste(id int auto_increment, id_user int, titre varchar(255), description varchar(255), id_liste_mere int);" +
+                "create table if not exists element(id int auto_increment, id_liste int, date_crea timestamp, date_modif timestamp, description varchar(255), titre varchar(255), statut int);";
+        DAO_Connect coCreation = new DAO_Connect();
+        coCreation.createConnection().createQuery(queryCreation).executeUpdate();
+
         //FreeMarker
         Configuration cfg = new Configuration(Configuration.VERSION_2_3_27);
         cfg.setClassForTemplateLoading(Main.class, "");

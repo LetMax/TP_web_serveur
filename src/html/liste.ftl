@@ -10,11 +10,12 @@
     <table>
         <thead>
             <tr>
-                <td>Element</td>
-                <td>Description</td>
-                <td>Date création</td>
-                <td>Dernière modification</td>
-                <td>Marquer comme</td>
+                <th>Element</th>
+                <th>Description</th>
+                <th>Date création</th>
+                <th>Dernière modification</th>
+                <th>Marquer comme</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -31,16 +32,17 @@
         </tbody>
     </table>
     <form action="/viewAllLists/${id}/ajoutElement" method="post">
-        <input type="text" name="titre" id="titre" placeholder="Titre"/><br/>
-        <input type="text" name="description" id="description" placeholder="Description"/><br/>
+        <input type="text" name="titre" id="titre" placeholder="Titre"/>
+        <input type="text" name="description" id="description" placeholder="Description"/>
         <input type="submit" value="Ajouter élément"/>
     </form>
     <h2>Sous listes :</h2>
         <table>
             <thead>
                 <tr>
-                    <td>Titre</td>
-                    <td>Description</td>
+                    <th>Titre</th>
+                    <th>Description</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -56,8 +58,8 @@
             </tbody>
         </table>
         <form action="/viewAllLists/${id}/creaSousListe" method="post">
-            <input type="text" name="titre" id="titre" placeholder="Titre"/><br/>
-            <input type="text" name="description" id="description" placeholder="Description"/><br/>
+            <input type="text" name="titre" id="titre" placeholder="Titre"/>
+            <input type="text" name="description" id="description" placeholder="Description"/>
             <input type="submit" value="Ajouter sous liste"/>
         </form>
     <#if id_liste_mere==0><#else><a class="button" href="../../viewAllLists/${id_liste_mere}/liste">Liste mère</a></#if>

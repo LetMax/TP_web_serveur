@@ -8,13 +8,19 @@ body {
 }
 
 table {
+    width: 40%;
     margin-left:auto;
     margin-right:auto;
+    border: collapse;
+    text-align: center;
  }
 
+table, th, td {
+    border: 1px solid black;
+}
 
-tr {
-    border: solid;
+th {
+    background-color: Tan;
 }
 
 h1 {
@@ -22,7 +28,7 @@ h1 {
 }
 
 input {
-  width: 30%;
+  width: 12%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;

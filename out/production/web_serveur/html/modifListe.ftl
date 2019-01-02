@@ -8,10 +8,10 @@
 <h1>Modifiez votre liste</h1>
 <form action="./edit" method="post">
     <label for="titre">Titre : </label>
-    <input type="text" name="titre" id="titre" value="${titre}" placeholder="Titre"/><br/>
+    <input type="text" name="titre" id="titre" value="${titre}" placeholder="Titre"/>
 
     <label for="description">Description : </label>
-    <input type="text" name="description" id="description" value="${description}" placeholder="Description"/><br/>
+    <input type="text" name="description" id="description" value="${description}" placeholder="Description"/>
 
     <input type="submit" value="Modifier"/>
 </form>

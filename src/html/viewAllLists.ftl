@@ -9,8 +9,9 @@
     <div style="text-align: center">
     <table>
         <tr>
-            <td>Titre</td>
-            <td>Description</td>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Actions</th>
         </tr>
         <#list listes as liste>
         <#if liste.id_liste_mere==0>
@@ -24,8 +25,8 @@
     </table>
     </div>
     <form action="/viewAllLists/creaListe" method="post">
-        <input type="text" name="titre" id="titre" placeholder="Titre"/><br/>
-        <input type="text" name="description" id="description" placeholder="Description"/><br/>
+        <input type="text" name="titre" id="titre" placeholder="Titre"/>
+        <input type="text" name="description" id="description" placeholder="Description"/>
         <input type="submit" value="Ajouter liste"/>
     </form>
     <a class="button" href="./">Retourner à l'accueil</a>
